@@ -10,6 +10,7 @@ import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -27,6 +28,10 @@ import java.util.List;
 
 public class ScheduleMeetingFragment extends Fragment implements View.OnClickListener {
 
+    private final String KEY_MEETING_DATE = "meeting_date";
+    private final String KEY_START_TIME = "start_time";
+    private final String KEY_END_TIME = "end_time";
+
     private MeetingListFragmentViewmodel mViewModel;
     private FragmentScheduleMeetingBinding binding;
 
@@ -41,29 +46,39 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         mViewModel = ViewModelProviders.of(getActivity()).get(MeetingListFragmentViewmodel.class);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        setRetainInstance(true);
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule_meeting, container, false);
         return binding.getRoot();
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putString(KEY_MEETING_DATE, binding.tvMeetingDate.getText().toString());
+        outState.putString(KEY_START_TIME, binding.tvStartTime.getText().toString());
+        outState.putString(KEY_END_TIME, binding.tvEndTime.getText().toString());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-//        if(mViewModel.meetingDate != null){
-//            binding.tvMeetingDate.setText(DateUtility.getDateDDMMYYYY(mViewModel.meetingDate));
-//        }
-//        if(mViewModel.meetingStartTime != null){
-//            binding.tvStartTime.setText(DateUtility.getTimeHHMM(mViewModel.meetingStartTime));
-//        }
-//        if(mViewModel.meetingEndTime != null){
-//            binding.tvEndTime.setText(DateUtility.getTimeHHMM(mViewModel.meetingEndTime));
-//        }
+        if(savedInstanceState != null){
+            if(savedInstanceState.getString(KEY_MEETING_DATE) != null){
+                binding.tvMeetingDate.setText(savedInstanceState.getString(KEY_MEETING_DATE));
+            }
+            if(savedInstanceState.getString(KEY_START_TIME) != null){
+                binding.tvStartTime.setText(savedInstanceState.getString(KEY_START_TIME));
+            }
+            if(savedInstanceState.getString(KEY_END_TIME) != null){
+                binding.tvEndTime.setText(savedInstanceState.getString(KEY_END_TIME));
+            }
+        }
     }
 
     @Override
@@ -122,7 +137,6 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year, month, dayOfMonth);
-                        mViewModel.meetingDate = calendar;
                         ((TextView) getActivity().findViewById(viewId))
                                 .setText(DateUtility.getDateDDMMYYYY(calendar));
                     }
@@ -142,12 +156,6 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         calendar.set(Calendar.MINUTE, minute);
-                        if(viewId == R.id.tv_start_time){
-                            mViewModel.meetingStartTime = calendar;
-                        }
-                        if(viewId == R.id.tv_end_time){
-                            mViewModel.meetingEndTime = calendar;
-                        }
 
                         ((TextView) getActivity().findViewById(viewId)).setText(DateUtility.getTimeHHMM(calendar));
                     }

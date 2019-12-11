@@ -19,11 +19,6 @@ public class MeetingListFragmentViewmodel extends ViewModel {
     public List<Example> meetingScheduleList = new ArrayList<>();
     private HashMap<String, LiveData<DataWrapper>> meetingScheduleCachedLiveData = new HashMap<>();
 
-    public Calendar meetingDate;
-    public Calendar meetingStartTime;
-    public Calendar meetingEndTime;
-    public String description;
-
     public LiveData<DataWrapper> getMeetingSchedule(String date){
         if(!meetingScheduleCachedLiveData.containsKey(date)){
             LiveData<DataWrapper> meetingScheduleLiveData = new MutableLiveData<>();
