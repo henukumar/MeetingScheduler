@@ -10,6 +10,7 @@
     <dimen name="toolbar_btn_msg_textsize">16sp</dimen>
 
     <dimen name="full_screen_msg_textsize">25sp</dimen>
+    <dimen name="progressbar_size">60dp</dimen>
 
     <dimen name="height_btn_schedule_meeting">50dp</dimen>
 

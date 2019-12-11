@@ -14,9 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.kalher.meetingscheduler.R;
+import com.kalher.meetingscheduler.custom.wrapper.DataWrapper;
 import com.kalher.meetingscheduler.databinding.FragmentScheduleMeetingBinding;
 import com.kalher.meetingscheduler.model.Example;
 import com.kalher.meetingscheduler.ui.viewmodel.MeetingListFragmentViewmodel;
@@ -164,11 +167,24 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
     }
 
     private void scheduleMeeting(){
+        final LiveData<DataWrapper> data = mViewModel
+                .getMeetingSchedule(DateUtility.getDateDDMMYYYY(mViewModel.currentSelectedDate));
 
+        if (data.getValue() != null) {
+            checkForscheduling(data.getValue());
+        }else{
+            binding.llProgressbar.setVisibility(View.VISIBLE);
+        }
+        data.observe(getViewLifecycleOwner(), new Observer<DataWrapper>() {
+            @Override
+            public void onChanged(DataWrapper dataWrapper) {
+                checkForscheduling(dataWrapper);
+            }
+        });
     }
 
-    private void checkForscheduling(List<Example> meetingScheduleList){
-
+    private void checkForscheduling(DataWrapper dataWrapper){
+//        binding.llProgressbar.setVisibility(View.GONE);
     }
 
 }
