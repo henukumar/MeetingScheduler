@@ -20,4 +20,7 @@
     <string name="txt_description">Description</string>
     <string name="txt_btn_submit">Submit</string>
 
+    <string name="msg_slot_available">Slot is available</string>
+    <string name="msg_no_slot_available">Slot isn\'t available</string>
+
 </resources>

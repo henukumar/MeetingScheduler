@@ -232,8 +232,8 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
 
             binding.llProgressbar.setVisibility(View.GONE);
 
-            String messageAvailable = "Slot is available";
-            String messageNotAvailable = "Slot isn't available";
+            String messageAvailable = getString(R.string.msg_slot_available);
+            String messageNotAvailable = getString(R.string.msg_no_slot_available);
 
             Toast.makeText(getActivity(), isSlotAvailable ? messageAvailable : messageNotAvailable,
                     Toast.LENGTH_SHORT).show();
