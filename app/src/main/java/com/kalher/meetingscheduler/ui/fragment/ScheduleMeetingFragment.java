@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,11 +22,16 @@ import androidx.lifecycle.ViewModelProviders;
 import com.kalher.meetingscheduler.R;
 import com.kalher.meetingscheduler.custom.wrapper.DataWrapper;
 import com.kalher.meetingscheduler.databinding.FragmentScheduleMeetingBinding;
+import com.kalher.meetingscheduler.helper.MeetingScheduleComparator;
 import com.kalher.meetingscheduler.model.Example;
 import com.kalher.meetingscheduler.ui.viewmodel.MeetingListFragmentViewmodel;
 import com.kalher.meetingscheduler.utils.DateUtility;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 
@@ -183,8 +189,57 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
         });
     }
 
-    private void checkForscheduling(DataWrapper dataWrapper){
-//        binding.llProgressbar.setVisibility(View.GONE);
+    private boolean checkForscheduling(DataWrapper dataWrapper){
+        boolean isSlotAvailable = true;
+
+        if(dataWrapper != null && dataWrapper.getData() != null){
+            List<Example> meetingScheduleList = new ArrayList<>((List<Example>) dataWrapper.getData());
+
+            Example meetingSchedule = new Example();
+            meetingSchedule.setStartTime(binding.tvStartTime.getText().toString());
+            meetingSchedule.setEndTime(binding.tvEndTime.getText().toString());
+
+            meetingScheduleList.add(meetingSchedule);
+
+            Collections.sort(meetingScheduleList, new MeetingScheduleComparator());
+
+            int index = 0;
+            for(int i=0;i<meetingScheduleList.size();i++){
+                if(meetingScheduleList.get(i) == meetingSchedule){
+                    index = i;
+                    break;
+                }
+            }
+
+            if(index-1 > 0 && index+1 < meetingScheduleList.size()){
+                if(DateUtility.timeToCalendar(meetingScheduleList.get(index-1).getEndTime())
+                        .after(DateUtility.timeToCalendar(meetingSchedule.getStartTime()))
+                        || DateUtility.timeToCalendar(meetingScheduleList.get(index+1).getStartTime())
+                        .before(DateUtility.timeToCalendar(meetingSchedule.getEndTime()))){
+                    isSlotAvailable = false;
+                }
+            }else if(index-1 > 0){
+                if(DateUtility.timeToCalendar(meetingScheduleList.get(index-1).getEndTime())
+                        .after(DateUtility.timeToCalendar(meetingSchedule.getStartTime()))){
+                    isSlotAvailable = false;
+                }
+            }else if(index+1 < meetingScheduleList.size()){
+                if(DateUtility.timeToCalendar(meetingScheduleList.get(index+1).getStartTime())
+                        .before(DateUtility.timeToCalendar(meetingSchedule.getEndTime()))){
+                    isSlotAvailable = false;
+                }
+            }
+
+            binding.llProgressbar.setVisibility(View.GONE);
+
+            String messageAvailable = "Slot is available";
+            String messageNotAvailable = "Slot isn't available";
+
+            Toast.makeText(getActivity(), isSlotAvailable ? messageAvailable : messageNotAvailable,
+                    Toast.LENGTH_SHORT).show();
+
+        }
+        return isSlotAvailable;
     }
 
 }
