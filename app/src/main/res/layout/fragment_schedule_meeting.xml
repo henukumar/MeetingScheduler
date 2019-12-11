@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.ScheduleMeetingFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                style="@style/NoInsetToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/iv_back"
+                        android:layout_width="@dimen/toolbar_btn_width"
+                        android:layout_height="@dimen/toolbar_btn_height"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/arrow_left"
+                        android:tint="@color/toolbarBtnColor" />
+
+                    <TextView
+                        android:id="@+id/tv_msg_back"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@id/iv_back"
+                        android:text="@string/msg_toolbar_back"
+                        android:textColor="@color/toolbarBtnMsgColor"
+                        android:textSize="@dimen/toolbar_btn_msg_textsize" />
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/toolbar_title_schedule_meeting"
+                        android:textColor="@color/toolbarTitleColor" />
+                </RelativeLayout>
+
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="@dimen/scheduler_container_padding">
+
+                <TextView
+                    android:id="@+id/tv_meeting_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scheduler_item_height_normal"
+                    android:layout_marginLeft="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginTop="@dimen/scheduler_item_top_margin"
+                    android:layout_marginRight="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginBottom="@dimen/scheduler_item_bottom_margin"
+                    android:background="@drawable/shape_eliptical_rectangle"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/scheduler_item_padding"
+                    android:text="@string/txt_meeting_date" />
+
+                <TextView
+                    android:id="@+id/tv_start_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scheduler_item_height_normal"
+                    android:layout_marginLeft="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginRight="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginBottom="@dimen/scheduler_item_bottom_margin"
+                    android:background="@drawable/shape_eliptical_rectangle"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/scheduler_item_padding"
+                    android:text="@string/txt_start_time" />
+
+                <TextView
+                    android:id="@+id/tv_end_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scheduler_item_height_normal"
+                    android:layout_marginLeft="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginRight="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginBottom="@dimen/scheduler_item_bottom_margin"
+                    android:background="@drawable/shape_eliptical_rectangle"
+                    android:drawableRight="@drawable/arrow_down"
+                    android:gravity="center_vertical"
+                    android:padding="@dimen/scheduler_item_padding"
+                    android:text="@string/txt_end_time" />
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scheduler_item_height_text"
+                    android:layout_marginLeft="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginTop="@dimen/scheduler_item_top_margin"
+                    android:layout_marginRight="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginBottom="@dimen/scheduler_item_bottom_margin"
+                    android:background="@drawable/shape_eliptical_rectangle"
+                    android:gravity="top"
+                    android:padding="@dimen/scheduler_item_padding"
+                    android:hint="@string/txt_description" />
+
+                <Button
+                    android:id="@+id/btn_submit"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/scheduler_submit_button_height"
+                    android:layout_marginLeft="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginTop="@dimen/scheduler_item_top_margin"
+                    android:layout_marginRight="@dimen/scheduler_item_horizontal_margin"
+                    android:layout_marginBottom="@dimen/scheduler_item_bottom_margin"
+                    android:background="@drawable/shape_eliptical_rectangle"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:padding="@dimen/scheduler_item_padding"
+                    android:text="@string/txt_btn_submit"
+                    android:textColor="@color/btnTextColor" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">MeetingScheduler</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="msg_toolbar_back">Back</string>
+    <string name="toolbar_title_schedule_meeting">SCHEDULE A MEETING</string>
+
+    <string name="msg_toolbar_prev">Prev</string>
+    <string name="msg_toolbar_next">Next</string>
+
+    <string name="msg_no_network">No network connection</string>
+
+    <string name="btn_txt_schedule_meeting">SCHEDULE COMPANY MEETING</string>
+
+    <string name="txt_meeting_date">Meeting Date</string>
+    <string name="txt_start_time">Start Time</string>
+    <string name="txt_end_time">End Time</string>
+    <string name="txt_description">Description</string>
+    <string name="txt_btn_submit">Submit</string>
+
+</resources>

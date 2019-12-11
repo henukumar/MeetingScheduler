@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="ms_item_height">100dp</dimen>
+    <dimen name="ms_item_horizontal_padding">20dp</dimen>
+    <dimen name="ms_item_vertical_padding">10dp</dimen>
+</resources>
