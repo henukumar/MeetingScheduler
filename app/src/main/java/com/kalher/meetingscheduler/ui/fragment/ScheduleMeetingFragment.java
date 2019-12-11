@@ -211,14 +211,14 @@ public class ScheduleMeetingFragment extends Fragment implements View.OnClickLis
                 }
             }
 
-            if(index-1 > 0 && index+1 < meetingScheduleList.size()){
+            if(index-1 >= 0 && index+1 < meetingScheduleList.size()){
                 if(DateUtility.timeToCalendar(meetingScheduleList.get(index-1).getEndTime())
                         .after(DateUtility.timeToCalendar(meetingSchedule.getStartTime()))
                         || DateUtility.timeToCalendar(meetingScheduleList.get(index+1).getStartTime())
                         .before(DateUtility.timeToCalendar(meetingSchedule.getEndTime()))){
                     isSlotAvailable = false;
                 }
-            }else if(index-1 > 0){
+            }else if(index-1 >= 0){
                 if(DateUtility.timeToCalendar(meetingScheduleList.get(index-1).getEndTime())
                         .after(DateUtility.timeToCalendar(meetingSchedule.getStartTime()))){
                     isSlotAvailable = false;
